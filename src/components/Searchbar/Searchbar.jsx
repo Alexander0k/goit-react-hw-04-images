@@ -1,44 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 import { FcSearch } from 'react-icons/fc';
 
-export default class Searchbar extends Component {
-  state = {
-    value: '',
+export default function Searchbar({ onSubmit }) {
+  const [value, setValue] = useState('');
+
+  const handleValueChange = event => {
+    setValue(event.target.value.toLowerCase());
   };
 
-  handleValueChange = event => {
-    this.setState({ value: event.target.value.toLowerCase() });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    if (this.state.value.trim() === '') {
+    if (value.trim() === '') {
       return alert('Please enter a request!');
     }
-    this.props.onSubmit(this.state.value);
+    onSubmit(value);
   };
 
-  render() {
-    return (
-      <header className={css.searchbar}>
-        <form className={css.searchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={css.searchForm__button}>
-            <FcSearch size="32px" />
-          </button>
+  return (
+    <header className={css.searchbar}>
+      <form className={css.searchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={css.searchForm__button}>
+          <FcSearch size="32px" />
+        </button>
 
-          <input
-            className={css.searchForm__input}
-            type="text"
-            placeholder="Search images and photos"
-            value={this.state.value}
-            onChange={this.handleValueChange}
-          />
-        </form>
-      </header>
-    );
-  }
+        <input
+          className={css.searchForm__input}
+          type="text"
+          placeholder="Search images and photos"
+          value={value}
+          onChange={handleValueChange}
+        />
+      </form>
+    </header>
+  );
 }
 
 Searchbar.propTypes = { onSubmit: PropTypes.func.isRequired };
