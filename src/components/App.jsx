@@ -30,6 +30,7 @@ export default function App() {
     setPerPage(12);
   };
 
+
   const loadMore = () => {
     setPerPage(per_page => per_page + 12);
   };
@@ -43,6 +44,8 @@ export default function App() {
   };
 
   const isPictures = Boolean(pictures.length);
+
+
 
   return (
     <div

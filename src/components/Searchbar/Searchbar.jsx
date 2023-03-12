@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 import { FcSearch } from 'react-icons/fc';
 
-export default function Searchbar({ onSubmit }) {
+export default function Searchbar({ onSubmit}) {
   const [value, setValue] = useState('');
 
   const handleValueChange = event => {
@@ -16,6 +16,7 @@ export default function Searchbar({ onSubmit }) {
       return alert('Please enter a request!');
     }
     onSubmit(value);
+    setValue('');
   };
 
   return (
